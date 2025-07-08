@@ -443,7 +443,6 @@ namespace WindowsFormsApp1
                                         ClickScrollDown();
                                     }
                                 }*/
-                                MessageBox.Show("Lỗi");
                             }
                         }
                         else
