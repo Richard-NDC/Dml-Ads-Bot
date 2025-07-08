@@ -384,8 +384,16 @@ namespace WindowsFormsApp1
                     {
                         if (otto.Checked)
                         {
-                            if (CheckOttoAds())
+                            if (CheckOttoAds() || CheckImage("Spin"))
                             {
+                                if (CheckImage("Spin"))
+                                {
+                                    ClickImage("Spin");
+                                    if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false))
+                                    {
+                                        continue;
+                                    }
+                                }
                                 ClickOttoAds();
                                 if (BackgroundClicker.WaitForImageAndClick("Spin"))
                                 {
