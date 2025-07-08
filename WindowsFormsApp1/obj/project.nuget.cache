@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eEudUxZu+Zc=",
+  "dgSpecHash": "Ke/yqsZDMQ4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\WindowsFormsApp1.csproj",
+  "projectFilePath": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\WindowsFormsApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\RCN\\.nuget\\packages\\emgu.cv\\4.10.0.5680\\emgu.cv.4.10.0.5680.nupkg.sha512",
     "C:\\Users\\RCN\\.nuget\\packages\\emgu.cv.bitmap\\4.10.0.5680\\emgu.cv.bitmap.4.10.0.5680.nupkg.sha512",

@@ -276,6 +276,16 @@ namespace WindowsFormsApp1
             return false;
         }
 
+        private bool CheckImage(string image)
+        {
+            string closeposition = BackgroundClicker.FindImagePosition(image);
+            if (closeposition != "0")
+            {
+                return true;
+            }
+            return false;
+        }
+
         private void ClickEggHatchingSkip()
         {
             string closeposition = BackgroundClicker.FindImagePosition("skip30m");
@@ -379,7 +389,10 @@ namespace WindowsFormsApp1
                                 ClickOttoAds();
                                 if (BackgroundClicker.WaitForImageAndClick("Spin"))
                                 {
-                                    ClickImage("Spin");
+                                    if (CheckImage("Spin"))
+                                    {
+                                        ClickImage("Spin");
+                                    }
                                     if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false))
                                     {
                                         continue;

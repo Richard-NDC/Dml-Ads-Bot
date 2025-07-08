@@ -2396,11 +2396,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\WindowsFormsApp1.csproj",
+      "projectUniqueName": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\WindowsFormsApp1.csproj",
       "projectName": "WindowsFormsApp1",
-      "projectPath": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\WindowsFormsApp1.csproj",
+      "projectPath": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\WindowsFormsApp1.csproj",
       "packagesPath": "C:\\Users\\RCN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\obj\\",
+      "outputPath": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "UsingMicrosoftNETSdk": false,
