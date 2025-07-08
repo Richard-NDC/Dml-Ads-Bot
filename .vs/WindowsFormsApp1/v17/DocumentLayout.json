@@ -1,17 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\",
+  "WorkspaceRootPath": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|c:\\users\\rcn\\source\\repos\\windowsformsapp1\\windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|c:\\users\\rcn\\documents\\github\\dml-ads-bot\\windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\windowsformsapp1\\backgroundclicker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\windowsformsapp1\\backgroundclicker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{531139C9-44CA-4BBF-A6E6-A43168916C42}|WindowsFormsApp1\\WindowsFormsApp1.csproj|solutionrelative:windowsformsapp1\\backgroundclicker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -28,9 +28,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\Form1.cs",
               "RelativeDocumentMoniker": "WindowsFormsApp1\\Form1.cs",
-              "ToolTip": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\Form1.cs [Design]",
               "RelativeToolTip": "WindowsFormsApp1\\Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-05T12:32:11.404Z",
@@ -40,9 +40,9 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "BackgroundClicker.cs",
-              "DocumentMoniker": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\BackgroundClicker.cs",
+              "DocumentMoniker": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\BackgroundClicker.cs",
               "RelativeDocumentMoniker": "WindowsFormsApp1\\BackgroundClicker.cs",
-              "ToolTip": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\BackgroundClicker.cs",
+              "ToolTip": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\BackgroundClicker.cs",
               "RelativeToolTip": "WindowsFormsApp1\\BackgroundClicker.cs",
               "ViewState": "AgIAAJEAAAAAAAAAAAAQwKkAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -52,11 +52,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\Form1.cs",
               "RelativeDocumentMoniker": "WindowsFormsApp1\\Form1.cs",
-              "ToolTip": "C:\\Users\\RCN\\source\\repos\\WindowsFormsApp1\\WindowsFormsApp1\\Form1.cs",
+              "ToolTip": "C:\\Users\\RCN\\Documents\\GitHub\\Dml-Ads-Bot\\WindowsFormsApp1\\Form1.cs",
               "RelativeToolTip": "WindowsFormsApp1\\Form1.cs",
-              "ViewState": "AgIAACUBAAAAAAAAAAAowKABAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAGsBAAAAAAAAAAAAAIsBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-02T02:03:18.162Z",
               "EditorCaption": ""

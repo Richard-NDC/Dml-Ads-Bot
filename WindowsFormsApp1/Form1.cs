@@ -67,6 +67,17 @@ namespace WindowsFormsApp1
             MessageBox.Show("Trước khi sử dụng, vui lòng bật sẵn game, chỉnh cam về vị trí cao nhất để tránh lỗi\n\nBefore using, please turn on the game, adjust the perspective to the highest position to avoid the error");
         }
 
+        private void ClickImage(string image)
+        {
+            string position = BackgroundClicker.FindImagePosition(image);
+            if (position != "0")
+            {
+                int X = Convert.ToInt32(position.Split('|')[0]);
+                int Y = Convert.ToInt32(position.Split('|')[1]);
+                BackgroundClicker.ClickAtScreen(X, Y);
+            }
+        }
+
         private void OpenShop()
         {
             string position = BackgroundClicker.FindImagePosition("Shop");
@@ -368,6 +379,7 @@ namespace WindowsFormsApp1
                                 ClickOttoAds();
                                 if (BackgroundClicker.WaitForImageAndClick("Spin"))
                                 {
+                                    ClickImage("Spin");
                                     if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false))
                                     {
                                         continue;
