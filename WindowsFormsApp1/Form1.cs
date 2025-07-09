@@ -389,7 +389,11 @@ namespace WindowsFormsApp1
                                 if (CheckImage("Spin"))
                                 {
                                     ClickImage("Spin");
-                                    if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false))
+                                    if (BackgroundClicker.WaitForImageAndClick("Spin", false, 0.9, 20))
+                                    {
+                                        continue;
+                                    }
+                                    if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false, 0.9, 20))
                                     {
                                         continue;
                                     }
