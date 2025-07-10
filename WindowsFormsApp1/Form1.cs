@@ -78,204 +78,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void OpenShop()
-        {
-            string position = BackgroundClicker.FindImagePosition("Shop");
-            if (position != "0")
-            {
-                int X = Convert.ToInt32(position.Split('|')[0]);
-                int Y = Convert.ToInt32(position.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void CloseShop()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Close");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private bool CheckClose()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Close");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private void CollectGold()
-        {
-            BackgroundClicker.CountAndClickAllImages("Gold");
-        }
-
-        private void CollectFood()
-        {
-            BackgroundClicker.CountAndClickAllImages("Food");
-        }
-
-        private bool CheckGemsAds()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Close");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckFood()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Food");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckGold()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Gold");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private void ClickGemsAds()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Gems");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void ClickOttoAds()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Otto_ads");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private bool CheckOttoAds()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Otto_ads");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-
-        private void ClickOK()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("OK");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-        private void ClickClaim()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Claim");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void ClickSpin()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Spin");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void ClickCloseFB()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("closefb");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private bool CheckIfThisAdIsAutoClose()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("Auto_close_ads");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckEggHatchingSkip()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("skip30m");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckCloseFB()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("closefb");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckClosedo()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("closedo");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckClosevang()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("closevang");
-            if (closeposition != "0")
-            {
-                return true;
-            }
-            return false;
-        }
-
         private bool CheckImage(string image)
         {
             string closeposition = BackgroundClicker.FindImagePosition(image);
@@ -284,61 +86,6 @@ namespace WindowsFormsApp1
                 return true;
             }
             return false;
-        }
-
-        private void ClickEggHatchingSkip()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("skip30m");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void ClickClosevang()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("closevang");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void ClickClosedo()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("closedo");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void ClickDivine()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("divine");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
-        }
-
-        private void ClickScrollDown()
-        {
-            string closeposition = BackgroundClicker.FindImagePosition("scrolldown");
-            if (closeposition != "0")
-            {
-                int X = Convert.ToInt32(closeposition.Split('|')[0]);
-                int Y = Convert.ToInt32(closeposition.Split('|')[1]);
-                BackgroundClicker.ClickAtScreen(X, Y);
-            }
         }
 
         private void ReopenGame()
@@ -384,7 +131,7 @@ namespace WindowsFormsApp1
                     {
                         if (otto.Checked)
                         {
-                            if (CheckOttoAds() || CheckImage("Spin"))
+                            if (CheckImage("Otto_ads") || CheckImage("Spin"))
                             {
                                 if (CheckImage("Spin"))
                                 {
@@ -398,14 +145,25 @@ namespace WindowsFormsApp1
                                         continue;
                                     }
                                 }
-                                ClickOttoAds();
+                                ClickImage("Otto_ads");
+                                if (!CheckImage("Auto_close_ads"))
+                                {
+                                    if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+                                    {
+                                        ClickImage("ads_ex");
+                                    }
+                                    else
+                                    {
+                                        ClickImage("ads_ex_2");
+                                    }
+                                }
                                 if (BackgroundClicker.WaitForImageAndClick("Spin"))
                                 {
                                     if (CheckImage("Spin"))
                                     {
                                         ClickImage("Spin");
                                     }
-                                    if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false))
+                                    if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false, 0.9, 20))
                                     {
                                         continue;
                                     }
@@ -451,14 +209,26 @@ namespace WindowsFormsApp1
                         }
                         else
                         {
-                            if (CheckEggHatchingSkip())
+                            if (CheckImage("skip30m"))
                             {
-                                ClickEggHatchingSkip();
+                                ClickImage("skip30m");
                                 Thread.Sleep(200);
-                                ClickOK();
+                                ClickImage("OK");
+                                Thread.Sleep(1000);
+                                if (!CheckImage("Auto_close_ads"))
+                                {
+                                    if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+                                    {
+                                        ClickImage("ads_ex");
+                                    }
+                                    else
+                                    {
+                                        ClickImage("ads_ex_2");
+                                    }
+                                }
                                 if (BackgroundClicker.WaitForImageAndClick("Claim"))
                                 {
-                                    ClickClaim();
+                                    ClickImage("Claim");
                                     if (BackgroundClicker.WaitForImageAndClick("skip30m", false))
                                     {
                                         continue;
@@ -473,7 +243,6 @@ namespace WindowsFormsApp1
                     }
                 }).Start();
             }
-        
         }
 
         private void otto_Click(object sender, EventArgs e)
