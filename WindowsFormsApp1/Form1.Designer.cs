@@ -31,11 +31,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.otto = new System.Windows.Forms.RadioButton();
             this.hatching = new System.Windows.Forms.RadioButton();
+            this.earngems = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(158, 35);
+            this.button1.Location = new System.Drawing.Point(278, 38);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 26);
             this.button1.TabIndex = 0;
@@ -69,11 +70,24 @@
             this.hatching.UseVisualStyleBackColor = true;
             this.hatching.Click += new System.EventHandler(this.hatching_Click);
             // 
+            // earngems
+            // 
+            this.earngems.AutoSize = true;
+            this.earngems.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.earngems.Location = new System.Drawing.Point(247, 12);
+            this.earngems.Name = "earngems";
+            this.earngems.Size = new System.Drawing.Size(117, 17);
+            this.earngems.TabIndex = 3;
+            this.earngems.Text = "Earn Gems (Popup)";
+            this.earngems.UseVisualStyleBackColor = true;
+            this.earngems.Click += new System.EventHandler(this.radioButton1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(255, 76);
+            this.ClientSize = new System.Drawing.Size(373, 76);
+            this.Controls.Add(this.earngems);
             this.Controls.Add(this.hatching);
             this.Controls.Add(this.otto);
             this.Controls.Add(this.button1);
@@ -90,6 +104,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RadioButton otto;
         private System.Windows.Forms.RadioButton hatching;
+        private System.Windows.Forms.RadioButton earngems;
     }
 }
 

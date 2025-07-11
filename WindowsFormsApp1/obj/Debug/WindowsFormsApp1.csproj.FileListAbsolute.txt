@@ -74,3 +74,4 @@ C:\Users\RCN\Documents\GitHub\Dml-Ads-Bot\WindowsFormsApp1\obj\Debug\WindowsForm
 C:\Users\RCN\Documents\GitHub\Dml-Ads-Bot\WindowsFormsApp1\obj\Debug\WindowsF.A1EEDF9B.Up2Date
 C:\Users\RCN\Documents\GitHub\Dml-Ads-Bot\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\RCN\Documents\GitHub\Dml-Ads-Bot\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
+C:\Users\RCN\Documents\GitHub\Dml-Ads-Bot\WindowsFormsApp1\bin\Debug\AutoHotkey.Interop.dll

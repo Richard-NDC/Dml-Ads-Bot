@@ -44,6 +44,10 @@
       "frameworks": {
         "net472": {
           "dependencies": {
+            "AutoHotkey.Interop": {
+              "target": "Package",
+              "version": "[1.0.0.1, )"
+            },
             "Emgu.CV": {
               "target": "Package",
               "version": "[4.10.0.5680, )"

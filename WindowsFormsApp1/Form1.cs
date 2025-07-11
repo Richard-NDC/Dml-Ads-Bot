@@ -24,6 +24,7 @@ namespace WindowsFormsApp1
     {
         private int ThuTuDao = 1;
         private volatile bool _running = false;
+        private string scriptpath = @"C:\Users\RCN\Desktop\macro\";
 
         // Khai báo cho RegisterHotKey và UnregisterHotKey
         [DllImport("user32.dll")]
@@ -88,6 +89,18 @@ namespace WindowsFormsApp1
             return false;
         }
 
+        private void RunAHKScript(string name)
+        {
+            try
+            {
+                string fullpath = Path.Combine(scriptpath, name);
+                AutoHotkeyExecutor executor = new AutoHotkeyExecutor();
+                executor.ExecuteScriptFromFile(fullpath);
+                executor.CleanUp();
+            } 
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+        }
+
         private void ReopenGame()
         {
             foreach (Process process in Process.GetProcesses())
@@ -129,6 +142,22 @@ namespace WindowsFormsApp1
                 {
                     while (_running)
                     {
+                        if (CheckImage("closefb"))
+                        {
+                            ClickImage("closefb");
+                        }    
+                        if (CheckImage("closedo"))
+                        {
+                            ClickImage("closedo");
+                        }    
+                        if (CheckImage("closevang"))
+                        {
+                            ClickImage("closevang");
+                        }
+                        if (CheckImage("Close"))
+                        {
+                            ClickImage("Close");
+                        }    
                         if (otto.Checked)
                         {
                             if (CheckImage("Otto_ads") || CheckImage("Spin"))
@@ -207,7 +236,7 @@ namespace WindowsFormsApp1
                                 }*/
                             }
                         }
-                        else
+                        else if (hatching.Checked)
                         {
                             if (CheckImage("skip30m"))
                             {
@@ -237,7 +266,42 @@ namespace WindowsFormsApp1
                             }
                             else
                             {
-
+                                
+                            }
+                        }
+                        else
+                        {
+                            if (CheckImage("Gems"))
+                            {
+                                ClickImage("Gems");
+                                Thread.Sleep(200);
+                                ClickImage("OK");
+                                Thread.Sleep(1000);
+                                if (!CheckImage("Auto_close_ads"))
+                                {
+                                    if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+                                    {
+                                        ClickImage("ads_ex");
+                                    }
+                                    else
+                                    {
+                                        ClickImage("ads_ex_2");
+                                    }
+                                }
+                                Thread.Sleep(500);
+                                ClickImage("Claim");
+                                Thread.Sleep(500);
+                            }
+                            else
+                            {
+                                switch (ThuTuDao)
+                                {
+                                    case 1:
+                                        RunAHKScript("1-2.AHK");
+                                        break;
+                                    case 2:
+                                        break;
+                                }
                             }
                         }
                     }
@@ -261,6 +325,11 @@ namespace WindowsFormsApp1
             {
                 _running = false;
             }
+        }
+
+        private void radioButton1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Vui lòng đưa vị trí tầm nhìn về đảo 1 (Đảo được tặng ban đầu)");
         }
     }
 }
