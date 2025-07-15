@@ -1,4 +1,5 @@
-﻿using Emgu.CV;
+﻿using AutoHotkey.Interop;
+using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using System;
@@ -22,6 +23,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        static bool needExHandling = false;
         private int ThuTuDao = 1;
         private volatile bool _running = false;
         private string scriptpath = @"C:\Users\RCN\Desktop\macro\";
@@ -38,7 +40,17 @@ namespace WindowsFormsApp1
         public const int WM_HOTKEY = 0x0312;
 
         private const int HOTKEY_ID = 9000; // số bất kỳ > 0, không trùng lặp
+        [DllImport("user32.dll")]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
+        [DllImport("user32.dll")]
+        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int width, int height, uint uFlags);
+
+        // Định nghĩa các tham số
+        private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
+        private static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+        private const uint SWP_NOMOVE = 0x0002;
+        private const uint SWP_NOSIZE = 0x0001;
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -68,7 +80,7 @@ namespace WindowsFormsApp1
             MessageBox.Show("Trước khi sử dụng, vui lòng bật sẵn game, chỉnh cam về vị trí cao nhất để tránh lỗi\n\nBefore using, please turn on the game, adjust the perspective to the highest position to avoid the error");
         }
 
-        private void ClickImage(string image)
+        private static void ClickImage(string image)
         {
             string position = BackgroundClicker.FindImagePosition(image);
             if (position != "0")
@@ -79,7 +91,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        private bool CheckImage(string image)
+        private static bool CheckImage(string image)
         {
             string closeposition = BackgroundClicker.FindImagePosition(image);
             if (closeposition != "0")
@@ -91,14 +103,24 @@ namespace WindowsFormsApp1
 
         private void RunAHKScript(string name)
         {
-            try
+            string ahkExePath = @"C:\Program Files\AutoHotkey\AutoHotkey.exe";
+            string ahkScriptPath = Path.Combine(scriptpath, name);
+            if (System.IO.File.Exists(ahkScriptPath))
             {
-                string fullpath = Path.Combine(scriptpath, name);
-                AutoHotkeyExecutor executor = new AutoHotkeyExecutor();
-                executor.ExecuteScriptFromFile(fullpath);
-                executor.CleanUp();
-            } 
-            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = ahkExePath,
+                    Arguments = $"\"{ahkScriptPath}\"",
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+                Process process = Process.Start(startInfo);
+                process.WaitForExit();
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy tệp AHK.");
+            }
         }
 
         private void ReopenGame()
@@ -127,6 +149,48 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void CloseAllPopup(int second)
+        {
+            DateTime now = DateTime.Now;
+            TimeSpan duration = TimeSpan.FromSeconds(second);
+            while (DateTime.Now - now < duration)
+            {
+                if (CheckImage("closefb"))
+                {
+                    ClickImage("closefb");
+                }
+                if (CheckImage("closedo"))
+                {
+                    ClickImage("closedo");
+                }
+                if (!hatching.Checked)
+                {
+                    if (CheckImage("closevang"))
+                    {
+                        ClickImage("closevang");
+                    }
+                }
+                if (!otto.Checked)
+                {
+                    if (CheckImage("Close"))
+                    {
+                        ClickImage("Close");
+                        Thread.Sleep(500);
+                        CloseVang();
+                    }
+                }
+                if (CheckImage("closetask"))
+                {
+                    ClickImage("closetask");
+                }
+            }
+        }
+
+        private void ReturnToBase()
+        {
+            RunAHKScript("8-1.ahk");
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string windowTitle = "Dragon Mania Legends";
@@ -137,147 +201,169 @@ namespace WindowsFormsApp1
             }
             else
             {
+                SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+                Thread.Sleep(1000);
+                SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
                 _running = true;
-                new Thread(() =>
+                while (_running)
                 {
-                    while (_running)
+                    if (otto.Checked)
                     {
-                        if (CheckImage("closefb"))
+                        if (CheckImage("Otto_ads") || CheckImage("Spin"))
                         {
-                            ClickImage("closefb");
-                        }    
-                        if (CheckImage("closedo"))
-                        {
-                            ClickImage("closedo");
-                        }    
-                        if (CheckImage("closevang"))
-                        {
-                            ClickImage("closevang");
-                        }
-                        if (CheckImage("Close"))
-                        {
-                            ClickImage("Close");
-                        }    
-                        if (otto.Checked)
-                        {
-                            if (CheckImage("Otto_ads") || CheckImage("Spin"))
+                            if (CheckImage("Spin"))
+                            {
+                                ClickImage("Spin");
+                                if (BackgroundClicker.WaitForImageAndClick("Spin", false, 0.9, 20))
+                                {
+                                    continue;
+                                }
+                                if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false, 0.9, 20))
+                                {
+                                    continue;
+                                }
+                            }
+                            ClickImage("Otto_ads");
+                            if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 5))
+                            {
+                                if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+                                {
+                                    ClickImage("ads_ex");
+                                }
+                                else
+                                {
+                                    ClickImage("ads_ex_2");
+                                }
+                            }
+                            if (BackgroundClicker.WaitForImageAndClick("Spin"))
                             {
                                 if (CheckImage("Spin"))
                                 {
                                     ClickImage("Spin");
-                                    if (BackgroundClicker.WaitForImageAndClick("Spin", false, 0.9, 20))
-                                    {
-                                        continue;
-                                    }
-                                    if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false, 0.9, 20))
-                                    {
-                                        continue;
-                                    }
                                 }
-                                ClickImage("Otto_ads");
-                                if (!CheckImage("Auto_close_ads"))
+                                if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false, 0.9, 20))
                                 {
-                                    if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
-                                    {
-                                        ClickImage("ads_ex");
-                                    }
-                                    else
-                                    {
-                                        ClickImage("ads_ex_2");
-                                    }
+                                    continue;
                                 }
-                                if (BackgroundClicker.WaitForImageAndClick("Spin"))
-                                {
-                                    if (CheckImage("Spin"))
-                                    {
-                                        ClickImage("Spin");
-                                    }
-                                    if (BackgroundClicker.WaitForImageAndClick("Otto_ads", false, 0.9, 20))
-                                    {
-                                        continue;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                /*ReopenGame();
-                                if (BackgroundClicker.WaitForImageDisappear("loadscreen"))
-                                {
-                                    DateTime startTime = DateTime.Now;
-                                    while ((DateTime.Now - startTime).TotalSeconds < 10000)
-                                    {
-                                        if (CheckCloseFB())
-                                        {
-                                            ClickCloseFB();
-                                            Thread.Sleep(400);
-                                        }
-                                        if (CheckClosedo())
-                                        {
-                                            ClickClosedo();
-                                            Thread.Sleep(400);
-                                        }
-                                        if (CheckClosevang())
-                                        {
-                                            ClickClosevang();
-                                            Thread.Sleep(400);
-                                        }
-                                        if (CheckClose())
-                                        {
-                                            CloseShop();
-                                            Thread.Sleep(400);
-                                        }
-                                    }
-                                    ClickDivine();
-                                    Thread.Sleep(300);
-                                    while (!BackgroundClicker.WaitForImageAndClick("ottobtn", true, 0.9, 5))
-                                    {
-                                        ClickScrollDown();
-                                    }
-                                }*/
-                            }
-                        }
-                        else if (hatching.Checked)
-                        {
-                            if (CheckImage("skip30m"))
-                            {
-                                ClickImage("skip30m");
-                                Thread.Sleep(200);
-                                ClickImage("OK");
-                                Thread.Sleep(1000);
-                                if (!CheckImage("Auto_close_ads"))
-                                {
-                                    if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
-                                    {
-                                        ClickImage("ads_ex");
-                                    }
-                                    else
-                                    {
-                                        ClickImage("ads_ex_2");
-                                    }
-                                }
-                                if (BackgroundClicker.WaitForImageAndClick("Claim"))
-                                {
-                                    ClickImage("Claim");
-                                    if (BackgroundClicker.WaitForImageAndClick("skip30m", false))
-                                    {
-                                        continue;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                
                             }
                         }
                         else
                         {
-                            if (CheckImage("Gems"))
+                            /*ReopenGame();
+                            if (BackgroundClicker.WaitForImageDisappear("loadscreen"))
                             {
-                                ClickImage("Gems");
-                                Thread.Sleep(200);
+                                DateTime startTime = DateTime.Now;
+                                while ((DateTime.Now - startTime).TotalSeconds < 10000)
+                                {
+                                    if (CheckCloseFB())
+                                    {
+                                        ClickCloseFB();
+                                        Thread.Sleep(400);
+                                    }
+                                    if (CheckClosedo())
+                                    {
+                                        ClickClosedo();
+                                        Thread.Sleep(400);
+                                    }
+                                    if (CheckClosevang())
+                                    {
+                                        ClickClosevang();
+                                        Thread.Sleep(400);
+                                    }
+                                    if (CheckClose())
+                                    {
+                                        CloseShop();
+                                        Thread.Sleep(400);
+                                    }
+                                }
+                                ClickDivine();
+                                Thread.Sleep(300);
+                                while (!BackgroundClicker.WaitForImageAndClick("ottobtn", true, 0.9, 5))
+                                {
+                                    ClickScrollDown();
+                                }
+                            }*/
+                        }
+                    }
+                    else if (hatching.Checked)
+                    {
+                        if (CheckImage("skip30m"))
+                        {
+                            ClickImage("skip30m");
+                            Thread.Sleep(200);
+                            ClickImage("OK");
+                            Thread.Sleep(1000);
+                            if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 5))
+                            {
+                                if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+                                {
+                                    ClickImage("ads_ex");
+                                }
+                                else
+                                {
+                                    ClickImage("ads_ex_2");
+                                }
+                            }
+                            if (BackgroundClicker.WaitForImageAndClick("Claim", false))
+                            {
+                                ClickImage("Claim");
+                                if (BackgroundClicker.WaitForImageAndClick("skip30m", false))
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    else
+                    {
+                        CloseAllPopup(3);
+                        if (CheckImage("Gold") && !needExHandling)
+                        {
+                            CollectGold();
+                        }
+                        if (CheckImage("Food") && !needExHandling)
+                        {
+                            CollectFood();
+                        }
+                        if (CheckImage("talis") && !needExHandling)
+                        {
+                            CollectTalis();
+                        }
+                        if (CheckImage("stone") && !needExHandling)
+                        {
+                            CollectStone();
+                        }
+                    IL_RE:
+                        if (CheckImage("Gems") || CheckImage("Claim") || CheckImage("gems1") || CheckImage("gemsads") || CheckImage("gems2"))
+                        {
+                            if (CheckImage("Close"))
+                            {
+                                ClickImage("Close");
+                                Thread.Sleep(500);
+                            }
+                            if (CheckImage("OK"))
+                            {
+                                ClickImage("OK");
+                            }
+                            ClickImage("Gems");
+                            ClickImage("gems1");
+                            ClickImage("gems2");
+                            Thread.Sleep(500);
+                            if (CheckImage("Close"))
+                            {
+                                ClickImage("Close");
+                                Thread.Sleep(500);
+                                needExHandling = true;
+                            }
+                            else
+                            {
                                 ClickImage("OK");
                                 Thread.Sleep(1000);
-                                if (!CheckImage("Auto_close_ads"))
+                                if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 12))
                                 {
                                     if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
                                     {
@@ -287,26 +373,178 @@ namespace WindowsFormsApp1
                                     {
                                         ClickImage("ads_ex_2");
                                     }
+                                    Thread.Sleep(500);
                                 }
-                                Thread.Sleep(500);
-                                ClickImage("Claim");
-                                Thread.Sleep(500);
+                                if (BackgroundClicker.WaitForImageAndClick("Claim"))
+                                {
+                                    if (CheckImage("Claim"))
+                                    {
+                                        ClickImage("Claim");
+                                    }
+                                    Thread.Sleep(500);
+                                }
+                                ClickOthers();
+                            }
+                        }
+                        if (needExHandling || !(CheckImage("Gems") || CheckImage("Claim") || CheckImage("gems1")))
+                        {
+                            needExHandling = false;
+                            if (CheckImage("Food"))
+                            {
+                                CollectFood();
+                            }
+                            if (CheckImage("centre") && ThuTuDao != 1)
+                            {
+                                ClickImage("centre");
+                                Thread.Sleep(1000);
+                                if (CheckImage("gemsads"))
+                                {
+                                    goto IL_RE;
+                                }
+                                if (BackgroundClicker.WaitForImageAndClick("other", false))
+                                {
+                                    ClickImage("other");
+                                    Thread.Sleep(200);
+                                }
+                                ThuTuDao = 1;
+                                continue;
+                            }
+                            if (ThuTuDao == 8)
+                            {
+                                ReturnToBase();
+                                if (CheckImage("centre"))
+                                {
+                                    ClickImage("centre");
+                                    Thread.Sleep(1000);
+                                    if (CheckImage("gemsads"))
+                                    {
+                                        goto IL_RE;
+                                    }
+                                    if (BackgroundClicker.WaitForImageAndClick("other", false))
+                                    {
+                                        ClickImage("other");
+                                        Thread.Sleep(200);
+                                    }
+                                }
+                                ThuTuDao = 1;
+                                continue;
                             }
                             else
                             {
                                 switch (ThuTuDao)
                                 {
                                     case 1:
-                                        RunAHKScript("1-2.AHK");
+                                        CloseVang();
+                                        RunAHKScript("1-2.ahk");
                                         break;
                                     case 2:
+                                        CloseVang();
+                                        RunAHKScript("2-3.ahk");
+                                        break;
+                                    case 3:
+                                        CloseVang();
+                                        RunAHKScript("3-4.ahk");
+                                        break;
+                                    case 4:
+                                        CloseVang();
+                                        RunAHKScript("4-5.ahk");
+                                        break;
+                                    case 5:
+                                        CloseVang();
+                                        RunAHKScript("5-6.ahk");
+                                        break;
+                                    case 6:
+                                        CloseVang();
+                                        RunAHKScript("6-7.ahk");
+                                        break;
+                                    case 7:
+                                        CloseVang();
+                                        RunAHKScript("7-8.ahk");
                                         break;
                                 }
+                                ThuTuDao++;
                             }
                         }
                     }
-                }).Start();
+                }
             }
+        }
+        private void ClickOthers()
+        {
+            switch (ThuTuDao)
+            {
+                case 1:
+                    BackgroundClicker.WaitForImageAndClick("other", true, 0.9, 2);
+                    break;
+                case 2:
+                    BackgroundClicker.WaitForImageAndClick("2", true, 0.9, 2);
+                    break;
+                case 3:
+                    BackgroundClicker.WaitForImageAndClick("3", true, 0.9, 2);
+                    break;
+                case 4:
+                    BackgroundClicker.WaitForImageAndClick("4", true, 0.9, 2);
+                    break;
+                case 5:
+                    BackgroundClicker.WaitForImageAndClick("5", true, 0.9, 2);
+                    break;
+                case 6:
+                    BackgroundClicker.WaitForImageAndClick("6", true, 0.9, 2);
+                    break;
+                case 7:
+                    BackgroundClicker.WaitForImageAndClick("7", true, 0.9, 2);
+                    break;
+            }
+        }
+
+        private void CloseVang()
+        {
+            if (CheckImage("closevang"))
+            {
+                ClickImage("closevang");
+                Thread.Sleep(500);
+            }
+        }
+
+        private void CollectFood()
+        {
+            BackgroundClicker.CountAndClickAllImages("Food");
+        }
+
+        public static bool CheckCloseAndClickEx()
+        {
+            if (CheckImage("Close"))
+            {
+                ClickImage("Close");
+                Thread.Sleep(500);
+                needExHandling = true;
+                return true;
+            }
+            return false;
+        }
+
+        public void CheckCloseAndClick()
+        {
+            if (CheckImage("Close"))
+            {
+                ClickImage("Close");
+                Thread.Sleep(500);
+            }
+        }
+
+        private void CollectGold()
+        {
+            BackgroundClicker.CountAndClickAllImages("Gold");
+        }
+
+        private void CollectTalis()
+        {
+            BackgroundClicker.CountAndClickAllImages("talis");
+        }
+
+        private void CollectStone()
+        {
+            BackgroundClicker.CountAndClickAllImages("stone");
         }
 
         private void otto_Click(object sender, EventArgs e)

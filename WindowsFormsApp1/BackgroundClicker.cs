@@ -35,6 +35,9 @@ namespace WindowsFormsApp1
         static extern bool SetCursorPos(int X, int Y);
 
         [DllImport("user32.dll")]
+        static extern bool GetCursorPos(out POINT lpPoint);
+
+        [DllImport("user32.dll")]
         static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
 
         const uint MOUSEEVENTF_LEFTDOWN = 0x02;
@@ -45,6 +48,13 @@ namespace WindowsFormsApp1
 
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT { public int Left, Top, Right, Bottom; }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int X;
+            public int Y;
+        }
 
         static Bitmap CaptureScreen()
         {
@@ -87,7 +97,6 @@ namespace WindowsFormsApp1
             var foundPoint = FindImage(capturedBmp, templateBmp);
             if (foundPoint.HasValue)
             {
-                ClickAtScreen(foundPoint.Value.X, foundPoint.Value.Y);
                 return $"{foundPoint.Value.X}|{foundPoint.Value.Y}";
             }
             else
@@ -100,38 +109,65 @@ namespace WindowsFormsApp1
         {
             string baseFolder = AppDomain.CurrentDomain.BaseDirectory;
             string imagePath = Path.Combine(baseFolder, "image", imageName + ".png");
+
             using var templateBmp = new Bitmap(imagePath);
+            int templateW = templateBmp.Width;
+            int templateH = templateBmp.Height;
+
+            // Chụp màn hình 1 lần
             using var screenBmp = CaptureScreen();
-            using var template = templateBmp.ToImage<Gray, byte>();
-            using var screen = screenBmp.ToImage<Gray, byte>();
-            using var result = screen.MatchTemplate(template, TemplateMatchingType.CcoeffNormed);
-            List<Point> matchPoints = new();
-            int templateW = template.Width;
-            int templateH = template.Height;
 
-            for (int y = 0; y < result.Height; y++)
+            // Làm việc trên 1 bản sao ảnh chụp để che vùng trùng
+            var workingBmp = new Bitmap(screenBmp);
+
+            var matchPoints = new List<Point>();
+
+            while (true)
             {
-                for (int x = 0; x < result.Width; x++)
-                {
-                    float matchVal = result.Data[y, x, 0];
-                    if (matchVal >= threshold)
-                    {
-                        Point center = new(x + templateW / 2, y + templateH / 2);
-                        bool isDuplicate = matchPoints.Any(p =>
-                            Math.Abs(p.X - center.X) < templateW / 2 &&
-                            Math.Abs(p.Y - center.Y) < templateH / 2);
+                // Gọi lại chính FindImage bạn đã viết
+                var foundPoint = FindImage(workingBmp, templateBmp, threshold);
 
-                        if (!isDuplicate)
-                            matchPoints.Add(center);
-                    }
+                if (!foundPoint.HasValue)
+                {
+                    break;
+                }
+
+                // Tọa độ click chính giữa vùng
+                int clickX = foundPoint.Value.X + templateW / 2;
+                int clickY = foundPoint.Value.Y + templateH / 2;
+
+                matchPoints.Add(new Point(clickX, clickY));
+
+                // Che vùng vừa tìm để không lặp lại (tô đen)
+                using (Graphics g = Graphics.FromImage(workingBmp))
+                {
+                    g.FillRectangle(Brushes.Black,
+                        new Rectangle(foundPoint.Value.X, foundPoint.Value.Y, templateW, templateH));
                 }
             }
-            foreach (var point in matchPoints)
+
+            if (matchPoints.Count == 0)
             {
-                ClickAtScreen(point.X, point.Y);
-                Thread.Sleep(200);
+                Console.WriteLine("Không tìm thấy ảnh nào.");
+                return;
             }
+
+            // Click tất cả điểm đã tìm được
+            foreach (var pt in matchPoints)
+            {
+                ClickAtScreen(pt.X, pt.Y);
+                BackgroundClicker.MoveMouse();
+                if (Form1.CheckCloseAndClickEx())
+                {
+                    return;
+                }
+                Thread.Sleep(500);
+            }
+
+            Console.WriteLine($"Đã tìm thấy và click {matchPoints.Count} điểm.");
         }
+
+
         public static bool WaitForImageAndClick(string image_name, bool click = true, double threshold = 0.9, int maxWaitTimeInSeconds = 60)
         {
             string baseFolder = AppDomain.CurrentDomain.BaseDirectory;
@@ -191,6 +227,32 @@ namespace WindowsFormsApp1
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, UIntPtr.Zero);
             Thread.Sleep(50);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, UIntPtr.Zero);
+        }
+
+        public static void DragMouse(int startX, int startY, int endX, int endY, int steps = 50, int delayPerStepMs = 10)
+        {
+            // 1. Move to start and press down
+            SetCursorPos(startX, startY);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, UIntPtr.Zero);
+            Thread.Sleep(50);
+            // 2. Simulate drag by moving step by step
+            for (int i = 1; i <= steps; i++)
+            {
+                int currentX = startX + (endX - startX) * i / steps;
+                int currentY = startY + (endY - startY) * i / steps;
+                SetCursorPos(currentX, currentY);
+                Thread.Sleep(delayPerStepMs);
+            }
+            // 3. Release
+            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, UIntPtr.Zero);
+        }
+
+        public static void MoveMouse()
+        {
+            GetCursorPos(out POINT currentPos);
+            int newX = currentPos.X + 400;
+            int newY = currentPos.Y;
+            SetCursorPos(newX, newY);
         }
     }
 }
