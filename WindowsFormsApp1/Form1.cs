@@ -26,7 +26,7 @@ namespace WindowsFormsApp1
         static bool needExHandling = false;
         private int ThuTuDao = 1;
         private volatile bool _running = false;
-        private string scriptpath = @"C:\Users\RCN\Desktop\macro\";
+        private string scriptpath = @"C:\Users\RCN\Desktop\AHK";
 
         // Khai báo cho RegisterHotKey và UnregisterHotKey
         [DllImport("user32.dll")]
@@ -440,26 +440,6 @@ namespace WindowsFormsApp1
                                     case 2:
                                         CloseVang();
                                         RunAHKScript("2-3.ahk");
-                                        break;
-                                    case 3:
-                                        CloseVang();
-                                        RunAHKScript("3-4.ahk");
-                                        break;
-                                    case 4:
-                                        CloseVang();
-                                        RunAHKScript("4-5.ahk");
-                                        break;
-                                    case 5:
-                                        CloseVang();
-                                        RunAHKScript("5-6.ahk");
-                                        break;
-                                    case 6:
-                                        CloseVang();
-                                        RunAHKScript("6-7.ahk");
-                                        break;
-                                    case 7:
-                                        CloseVang();
-                                        RunAHKScript("7-8.ahk");
                                         break;
                                 }
                                 ThuTuDao++;
