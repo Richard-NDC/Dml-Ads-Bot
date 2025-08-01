@@ -32,11 +32,13 @@
             this.otto = new System.Windows.Forms.RadioButton();
             this.hatching = new System.Windows.Forms.RadioButton();
             this.earngems = new System.Windows.Forms.RadioButton();
+            this.spamcardads = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(278, 38);
+            this.button1.Location = new System.Drawing.Point(488, 35);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 26);
             this.button1.TabIndex = 0;
@@ -82,11 +84,35 @@
             this.earngems.UseVisualStyleBackColor = true;
             this.earngems.Click += new System.EventHandler(this.radioButton1_Click);
             // 
+            // spamcardads
+            // 
+            this.spamcardads.AutoSize = true;
+            this.spamcardads.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.spamcardads.Location = new System.Drawing.Point(370, 12);
+            this.spamcardads.Name = "spamcardads";
+            this.spamcardads.Size = new System.Drawing.Size(98, 17);
+            this.spamcardads.TabIndex = 4;
+            this.spamcardads.Text = "Spam Card Ads";
+            this.spamcardads.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.radioButton2.Location = new System.Drawing.Point(474, 12);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(103, 17);
+            this.radioButton2.TabIndex = 5;
+            this.radioButton2.Text = "Spam Chest Ads";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 76);
+            this.ClientSize = new System.Drawing.Size(583, 76);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.spamcardads);
             this.Controls.Add(this.earngems);
             this.Controls.Add(this.hatching);
             this.Controls.Add(this.otto);
@@ -105,6 +131,8 @@
         private System.Windows.Forms.RadioButton otto;
         private System.Windows.Forms.RadioButton hatching;
         private System.Windows.Forms.RadioButton earngems;
+        private System.Windows.Forms.RadioButton spamcardads;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }
 

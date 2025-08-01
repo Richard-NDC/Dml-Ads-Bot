@@ -205,7 +205,7 @@ namespace WindowsFormsApp1
                 Thread.Sleep(1000);
                 SetWindowPos(hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
                 _running = true;
-                while (_running)
+                while (true)
                 {
                     if (otto.Checked)
                     {
@@ -318,7 +318,7 @@ namespace WindowsFormsApp1
 
                         }
                     }
-                    else
+                    else if (earngems.Checked)
                     {
                         CloseAllPopup(3);
                         if (CheckImage("Gold") && !needExHandling)
@@ -445,6 +445,64 @@ namespace WindowsFormsApp1
                                 ThuTuDao++;
                             }
                         }
+                    }
+                    else if (spamcardads.Checked)
+                    {
+                        if (CheckImage("card_ads"))
+                        {
+                            ClickImage("card_ads");
+                            if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 5))
+                            {
+                                if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+                                {
+                                    ClickImage("ads_ex");
+                                }
+                                else
+                                {
+                                    ClickImage("ads_ex_2");
+                                }
+                            }
+                            while (BackgroundClicker.WaitForImageAndClick("open_card", true, 0.9, 1))
+                            {
+                                ClickImage("open_card");
+                            }
+                            if (BackgroundClicker.WaitForImageAndClick("claim_card", false, 0.9, 5))
+                            {
+                                ClickImage("claim_card");
+                            }    
+                        }
+                    }
+                    else
+                    {
+                        if (CheckImage("chest_ads")||CheckImage("claim_chest"))
+                        {
+                            if (CheckImage("claim_chest"))
+                            {
+                                ClickImage("claim_chest");
+                            }    
+                            ClickImage("chest_ads");
+                            if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 5))
+                            {
+                                if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+                                {
+                                    ClickImage("ads_ex");
+                                }
+                                else if (BackgroundClicker.WaitForImageAndClick("ads_ex_2"))
+                                {
+                                    ClickImage("ads_ex_2");
+                                }
+                                else
+                                {
+                                    ClickImage("ads_ex_3");
+                                }
+                            }
+                            if (BackgroundClicker.WaitForImageAndClick("claim_chest", true, 0.9, 30))
+                            {
+                                ClickImage("claim_chest");
+                            }
+                            Thread.Sleep(800);
+                        }
+
                     }
                 }
             }
