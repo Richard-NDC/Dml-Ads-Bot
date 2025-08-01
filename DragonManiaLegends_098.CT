@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <CheatTable CheatEngineTableVersion="34">
   <CheatEntries>
@@ -35,3 +36,42 @@ dealloc(newmem)
   </CheatCodes>
   <UserdefinedSymbols/>
 </CheatTable>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="34">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>4</ID>
+      <Description>"Enable Gems Ads Rewards"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{ Game   : DragonManiaLegends.exe
+  Version: 
+  Date   : 2025-07-24
+  Author : Cuong Nguyen
+
+  This script was made by Cuong Nguyen
+  #Discord → butdark
+}
+
+[ENABLE]
+define(address,"DragonManiaLegends.exe"+179AF75)
+define(bytes,39 43 40)
+
+address:
+db 39 4B 40   // Enable Gems ads rewards
+
+[DISABLE]
+"DragonManiaLegends.exe"+179AF75:
+db 39 43 40
+// cmp byte ptr [rdi+19],00
+// jne DragonManiaLegends.exe+1690F26
+dealloc(newmem)
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>
+>>>>>>> 9c478fcb444633426dd7877852112c635f099066
