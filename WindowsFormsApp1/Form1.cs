@@ -226,14 +226,7 @@ namespace WindowsFormsApp1
                             ClickImage("Otto_ads");
                             if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 5))
                             {
-                                if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
-                                {
-                                    ClickImage("ads_ex");
-                                }
-                                else
-                                {
-                                    ClickImage("ads_ex_2");
-                                }
+                                CloseAds();
                             }
                             if (BackgroundClicker.WaitForImageAndClick("Spin"))
                             {
@@ -453,14 +446,7 @@ namespace WindowsFormsApp1
                             ClickImage("card_ads");
                             if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 5))
                             {
-                                if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
-                                {
-                                    ClickImage("ads_ex");
-                                }
-                                else
-                                {
-                                    ClickImage("ads_ex_2");
-                                }
+                                CloseAds();
                             }
                             while (BackgroundClicker.WaitForImageAndClick("open_card", true, 0.9, 1))
                             {
@@ -483,18 +469,7 @@ namespace WindowsFormsApp1
                             ClickImage("chest_ads");
                             if (!BackgroundClicker.WaitForImageAndClick("Auto_close_ads", false, 0.9, 5))
                             {
-                                if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
-                                {
-                                    ClickImage("ads_ex");
-                                }
-                                else if (BackgroundClicker.WaitForImageAndClick("ads_ex_2"))
-                                {
-                                    ClickImage("ads_ex_2");
-                                }
-                                else
-                                {
-                                    ClickImage("ads_ex_3");
-                                }
+                                CloseAds();
                             }
                             if (BackgroundClicker.WaitForImageAndClick("claim_chest", true, 0.9, 30))
                             {
@@ -532,6 +507,22 @@ namespace WindowsFormsApp1
                 case 7:
                     BackgroundClicker.WaitForImageAndClick("7", true, 0.9, 2);
                     break;
+            }
+        }
+
+        private void CloseAds()
+        {
+            if (BackgroundClicker.WaitForImageAndClick("ads_ex"))
+            {
+                ClickImage("ads_ex");
+            }
+            else if (BackgroundClicker.WaitForImageAndClick("ads_ex_2"))
+            {
+                ClickImage("ads_ex_2");
+            }
+            else
+            {
+                ClickImage("ads_ex_3");
             }
         }
 
